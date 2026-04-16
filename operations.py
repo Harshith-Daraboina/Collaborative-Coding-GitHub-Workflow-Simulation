@@ -21,12 +21,18 @@ def view_students():
 
 # 👤 Om sai chand — Search Student
 # Responsibility: Find student by ID, Return correct result
+# 👤 Om sai chand — Search Student
+# Responsibility: Find student by ID, Return correct result
 def search_student(student_id):
     """
-    To be implemented by Om sai chand.
-    Test: tests/test_search.py
+    Implemented by Om sai chand.
+    Finds a student by their ID.
     """
-    pass
+    students = database.load_data()
+    for student in students:
+        if student.get('student_id') == student_id:
+            return student
+    return None
 
 # 👤 Mihir — Delete Student
 # Responsibility: Remove student from database, Ensure student is actually deleted
