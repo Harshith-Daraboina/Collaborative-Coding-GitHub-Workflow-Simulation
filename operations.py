@@ -1,6 +1,9 @@
 # operations.py
 # CRUD operations for Student Management System
 
+from database import load_data, save_data
+from student import Student
+
 # 👤 Yuvansh — Add Student
 # Responsibility: Add new student to database, Ensure no crash on input
 def add_student(student):
@@ -8,7 +11,12 @@ def add_student(student):
     To be implemented by Yuvansh.
     Test: tests/test_add.py
     """
-    pass
+    if not isinstance(student, Student):
+        raise ValueError("Input must be a Student object")
+    
+    data = load_data()
+    data.append(student.to_dict())
+    save_data(data)
 
 # 👤 Arun — View Students
 # Responsibility: Return/display all students, Handle empty list properly
