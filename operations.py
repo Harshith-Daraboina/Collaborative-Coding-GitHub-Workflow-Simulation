@@ -1,6 +1,8 @@
 # operations.py
 # CRUD operations for Student Management System
 
+from database import load_data, save_data
+
 # 👤 Yuvansh — Add Student
 # Responsibility: Add new student to database, Ensure no crash on input
 def add_student(student):
@@ -31,8 +33,27 @@ def search_student(student_id):
 # 👤 Mihir — Delete Student
 # Responsibility: Remove student from database, Ensure student is actually deleted
 def delete_student(student_id):
+    """Delete a student by ID and persist the change.
+
+    Author: Mihir
+
+    Args:
+        student_id (str | int): Unique ID of the student to delete.
+
+    Returns:
+        bool: True if a student was deleted, False if no match was found.
     """
-    To be implemented by Mihir.
-    Test: tests/test_delete.py
-    """
-    pass
+    students = load_data()
+    original_count = len(students)
+
+    # Compare IDs as strings so callers can pass either int or str safely.
+    filtered_students = [
+        student for student in students
+        if str(student.get("student_id")) != str(student_id)
+    ]
+
+    if len(filtered_students) == original_count:
+        return False
+
+    save_data(filtered_students)
+    return True
